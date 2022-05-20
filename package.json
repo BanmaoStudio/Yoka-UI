@@ -1,41 +1,80 @@
 {
-    "name": "Yoka-UI",
+    "name": "yoka-ui",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts",
+    "module": "esm/index.js",
     "scripts": {
         "dev": "dumi dev",
+        "build:types": "tsc -p tsconfig.build.json && cpr lib esm",
         "build:site": "rimraf doc-site && dumi build",
+        "clean": "rimraf lib esm dist",
+        "build": "npm run clean && npm run build:types && gulp",
         "preview:site": "cross-env SITE_BUILD_ENV=PREVIEW npm run build:site && serve doc-site",
         "deploy:site": "npm run build:site && gh-pages -d doc-site",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:update": "jest --updateSnapshot",
         "commit": "git-cz"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": [
+        "react",
+        "ui framework",
+        "Yoka",
+        "Yoka UI",
+        "UI"
+    ],
+    "author": "Banmao",
+    "license": "MIT",
     "devDependencies": {
+        "@babel/core": "^7.17.10",
+        "@babel/plugin-proposal-class-properties": "^7.16.7",
+        "@babel/plugin-transform-runtime": "^7.17.10",
+        "@babel/preset-env": "^7.17.10",
+        "@babel/preset-react": "^7.16.7",
+        "@babel/preset-typescript": "^7.16.7",
         "@commitlint/cli": "^16.2.4",
         "@commitlint/config-conventional": "^16.2.4",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.2.0",
+        "@types/jest": "^27.5.0",
         "@types/react": "^18.0.8",
         "@types/react-dom": "^18.0.3",
+        "@types/testing-library__react": "^10.2.0",
         "@umijs/fabric": "^2.10.2",
+        "autoprefixer": "^10.4.7",
         "commitizen": "^4.2.4",
+        "cpr": "^3.0.1",
         "cross-env": "^7.0.3",
         "cz-conventional-changelog": "^3.3.0",
         "dumi": "^1.1.40",
         "gh-pages": "^3.2.3",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^8.0.0",
+        "gulp-babel": "^8.0.0",
+        "gulp-cssnano": "^2.1.3",
+        "gulp-less": "^5.0.0",
+        "gulp-postcss": "^9.0.1",
         "husky": "^7.0.4",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^28.1.0",
+        "less": "^4.1.2",
         "lint-staged": "^12.4.1",
         "prettier": "^2.6.2",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
         "serve": "^13.0.2",
+        "through2": "^4.0.2",
+        "ts-jest": "^28.0.1",
         "typescript": "^4.6.4"
     },
     "lint-staged": {
         "src/**/*.ts?(x)": [
             "prettier --write",
             "eslint --fix",
+            "jest --bail --findRelatedTests",
             "git add"
         ],
         "src/**/*.less": [
@@ -55,6 +94,17 @@
         }
     },
     "dependencies": {
-        "prop-types": "^15.8.1"
-    }
+        "@babel/runtime": "^7.17.9",
+        "@types/history": "^5.0.0",
+        "@types/react-router-dom": "^5.3.3",
+        "history": "^5.3.0",
+        "prop-types": "^15.8.1",
+        "react-router-dom": "^6.3.0"
+    },
+    "sideEffects": [
+        "dist/*",
+        "esm/**/style/*",
+        "lib/**/style/*",
+        "*.less"
+    ]
 }

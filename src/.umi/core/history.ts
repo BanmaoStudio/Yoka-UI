@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createBrowserHistory, History } from 'umi';
+import { createBrowserHistory, History } from '/Users/maculosa/Workspaces/React/youka-ui/node_modules/umi/node_modules/@umijs/runtime';
 
 let options = {
   "basename": "/Yoka-UI"
